@@ -27,6 +27,8 @@ async function nowDeploy (bodies, randomness) {
     meta: {}
   };
 
+  console.log(`posting ${files.length} files`);
+
   for (const { file: filename } of files) {
     const json = await filePost(
       bodies[filename],
@@ -44,6 +46,8 @@ async function nowDeploy (bodies, randomness) {
     deploymentId = json.id;
     deploymentUrl = json.url;
   }
+
+  console.log('deploymentUrl', deploymentUrl);
 
   for (let i = 0; i < 500; i += 1) {
     const { state } = await deploymentGet(deploymentId);

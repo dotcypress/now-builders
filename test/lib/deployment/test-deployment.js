@@ -69,7 +69,7 @@ async function testDeployment ({ builderUrl, buildUtilsUrl }, fixturePath) {
   const { deploymentId, deploymentUrl } = await nowDeploy(bodies, randomness);
   console.log('deploymentUrl', deploymentUrl);
 
-  for (const probe of nowJson.probes) {
+  for (const probe of nowJson.probes || []) {
     console.log('testing', JSON.stringify(probe));
     const probeUrl = `https://${deploymentUrl}${probe.path}`;
     const text = await fetchDeploymentUrl(probeUrl, {

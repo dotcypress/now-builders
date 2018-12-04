@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "wp-config.php", "use": "@now/php", "config": { "maxLambdaSize": "15mb" } }
+  ]
+}
