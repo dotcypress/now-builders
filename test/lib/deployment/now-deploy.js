@@ -47,7 +47,7 @@ async function nowDeploy (bodies, randomness) {
     deploymentUrl = json.url;
   }
 
-  console.log('deploymentUrl', deploymentUrl);
+  console.log('id', deploymentId);
 
   for (let i = 0; i < 500; i += 1) {
     const { state } = await deploymentGet(deploymentId);

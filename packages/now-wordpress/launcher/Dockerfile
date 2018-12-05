@@ -3,7 +3,7 @@ RUN yum -y install wget git
 RUN rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
 RUN yum -y install php71w-cli php71w-devel php71w-embedded php71w-mbstring php71w-mysql
 RUN yum -y install epel-release
-RUN yum -y install golang
+RUN yum -y install golang patchelf
 
 RUN mkdir -p /root/go/app/public
 
@@ -23,6 +23,9 @@ RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -o launcher launcher.go
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -o test test.go
 
 RUN strip launcher
+RUN patchelf --set-rpath './modules' launcher
 RUN strip test
+RUN patchelf --set-rpath './modules' test
+RUN patchelf --set-rpath './modules' /usr/lib64/php/modules/mysqli.so
 
 CMD ["/bin/bash", "test.sh"]
